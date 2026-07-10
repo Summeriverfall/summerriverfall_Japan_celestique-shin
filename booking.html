@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Book your appointment at Celestique Spa — authentic Vietnamese spa in Osaka">
+  <title>Book Appointment — Celestique Spa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #241a12;
+      --ink-soft: #6b5949;
+      --brand: #8B4513;
+      --brand-deep: #6d3410;
+      --gold: #c19a6b;
+      --gold-pale: #e9dcc8;
+      --cream: #faf6f0;
+      --white: #ffffff;
+      --font-display: "Cormorant Garamond", serif;
+      --font-body: "Noto Sans JP", "Noto Sans SC", sans-serif;
+    }
+
+    html[lang="zh-CN"] { --font-body: "Noto Sans SC", "Noto Sans JP", sans-serif; }
+    html[lang="ja"]    { --font-body: "Noto Sans JP", "Noto Sans SC", sans-serif; }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(193, 154, 107, 0.13), transparent 40%),
+        radial-gradient(circle at 88% 90%, rgba(139, 69, 19, 0.09), transparent 45%),
+        var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .booking-container {
+      max-width: 620px;
+      margin: 0 auto;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .booking-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover { color: var(--brand); }
+
+    .lang-switch { display: flex; align-items: center; gap: 0.2rem; flex-shrink: 0; }
+
+    .lang-switch button {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      padding: 0.35rem 0.55rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.3s;
+    }
+
+    .lang-switch button:hover { color: var(--brand); }
+    .lang-switch button.active { color: var(--brand); border-bottom: 1px solid var(--gold); }
+
+    .booking-header {
+      text-align: center;
+      margin-bottom: 2.4rem;
+    }
+
+    .brand-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      padding: 7px 18px;
+      margin-bottom: 1.1rem;
+      font-size: 0.66rem;
+      color: var(--brand);
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .booking-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.4rem;
+    }
+
+    .booking-subtitle {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+    }
+
+    .booking-card {
+      background: var(--white);
+      border: 1px solid var(--gold-pale);
+      padding: 2.5rem;
+      box-shadow: 0 24px 60px rgba(36, 26, 18, 0.1);
+    }
+
+    .form-group { margin-bottom: 1.6rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid var(--gold-pale);
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--ink);
+      background: var(--cream);
+      transition: all 0.3s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.15);
+      background: var(--white);
+    }
+
+    .form-input::placeholder { color: var(--ink-soft); }
+
+    .form-hint {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-top: 0.45rem;
+    }
+
+    .form-error {
+      color: #C0392B;
+      font-size: 0.82rem;
+      margin-top: 0.45rem;
+      display: none;
+    }
+
+    .form-group.error .form-error { display: block; }
+    .form-group.error .form-input,
+    .form-group.error .form-select { border-color: #C0392B; }
+
+    .vip-upgrade {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--cream);
+      border: 1px solid var(--gold-pale);
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .vip-upgrade:hover { border-color: var(--gold); }
+
+    .vip-upgrade input { margin-top: 5px; accent-color: #8B4513; }
+
+    .vip-upgrade strong {
+      display: block;
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+
+    .vip-upgrade span {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+    }
+
+    .message-preview {
+      margin: 1.4rem 0;
+      border: 1px solid var(--gold-pale);
+      background: var(--cream);
+    }
+
+    .message-preview-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--gold-pale);
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brand);
+      font-weight: 500;
+    }
+
+    .message-preview-head svg { width: 16px; height: 16px; fill: #1E8E4F; flex-shrink: 0; }
+
+    .message-preview-body {
+      display: none;
+      margin: 0;
+      padding: 1rem 1.1rem;
+      font-family: inherit;
+      font-size: 0.86rem;
+      line-height: 1.65;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .message-preview-hint {
+      padding: 1rem 1.1rem;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+
+    .message-preview.ready .message-preview-body { display: block; }
+    .message-preview.ready .message-preview-hint { display: none; }
+
+    .submit-button {
+      width: 100%;
+      padding: 16px;
+      background: var(--brand);
+      color: var(--cream);
+      border: 1px solid var(--brand);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-button:hover {
+      background: var(--brand-deep);
+      border-color: var(--brand-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(109, 52, 16, 0.3);
+    }
+
+    .submit-button:active { transform: translateY(0); }
+    .submit-button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .payment-note {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      text-align: center;
+      margin: 1.2rem 0 0;
+      line-height: 1.7;
+    }
+
+    .whatsapp-icon {
+      width: 19px; height: 19px;
+      display: inline-flex;
+    }
+
+    .whatsapp-icon svg { width: 100%; height: 100%; fill: currentColor; }
+
+    .success-message {
+      display: none;
+      background: rgba(139, 69, 19, 0.08);
+      border: 1px solid var(--gold);
+      padding: 1rem;
+      margin-bottom: 1.4rem;
+      color: var(--brand-deep);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .additional-services {
+      display: none;
+      margin-top: 1.4rem;
+      padding-top: 1.4rem;
+      border-top: 1px dashed var(--gold-pale);
+    }
+
+    .additional-services.show { display: block; }
+
+    .additional-services h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--brand);
+      margin-bottom: 1rem;
+    }
+
+    .guest-service-row {
+      background: var(--cream);
+      padding: 1rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .guest-label {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      margin-bottom: 0.45rem;
+      font-weight: 500;
+    }
+
+    .guest-service-row .form-select { background: var(--white); }
+
+    .same-package-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 0.88rem;
+    }
+
+    .same-package-label input { accent-color: #8B4513; }
+
+    @media (max-width: 768px) {
+      body { padding: 24px 15px; }
+      .booking-card { padding: 2rem 1.4rem; }
+      .booking-top { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-container">
+    <div class="booking-top">
+      <a href="landing.html" class="back-link" id="backLink">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="backLinkText">Back to Home</span>
+      </a>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="cn">中文</button>
+        <button type="button" data-lang="en" class="active">EN</button>
+        <button type="button" data-lang="jp">日本語</button>
+      </div>
+    </div>
+
+    <div class="booking-header">
+      <div class="brand-badge" id="brandBadge">Book Your Appointment</div>
+      <h1 class="booking-title">Celestique Spa</h1>
+      <p class="booking-subtitle" id="bookingSubtitle">Fill in the form below to book your appointment</p>
+    </div>
+
+    <div class="booking-card">
+      <div class="success-message" id="successMessage"></div>
+
+      <form id="bookingForm">
+        <div class="form-group" id="serviceGroup">
+          <label for="service" class="form-label" id="labelService">Course *</label>
+          <select id="service" name="service" class="form-select" required></select>
+          <div class="form-error" id="errorService">Please select a course</div>
+        </div>
+
+        <div class="form-group" id="dateGroup">
+          <label for="date" class="form-label" id="labelDate">Date *</label>
+          <input type="date" id="date" name="date" class="form-input" required>
+          <div class="form-error" id="errorDate">Please select a date</div>
+        </div>
+
+        <div class="form-group" id="timeGroup">
+          <label for="time" class="form-label" id="labelTime">Time *</label>
+          <select id="time" name="time" class="form-select" required></select>
+          <div class="form-hint" id="hintTime">Open daily 11:00 – 03:00 (last booking 02:00).</div>
+          <div class="form-error" id="errorTime">Please select a time</div>
+        </div>
+
+        <div class="form-group" id="guestsGroup">
+          <label for="guests" class="form-label" id="labelGuests">Number of Guests *</label>
+          <select id="guests" name="guests" class="form-select" required></select>
+          <div class="form-error" id="errorGuests">Please select number of guests</div>
+        </div>
+
+        <div class="form-group" id="nameGroup">
+          <label for="name" class="form-label" id="labelName">Name *</label>
+          <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name" required>
+          <div class="form-error" id="errorName">Please enter your name</div>
+        </div>
+
+        <div class="form-group">
+          <label class="vip-upgrade">
+            <input type="checkbox" id="vipUpgrade" name="vipUpgrade">
+            <div>
+              <strong id="vipTitle">VIP Business Room Upgrade (+¥1,000 / guest)</strong>
+              <span id="vipDesc">Undisturbed private room for 2–5 guests — ideal for meetings, couples and groups.</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="form-group" id="samePackageGroup" style="display: none;">
+          <label class="same-package-label">
+            <input type="checkbox" id="samePackage" name="samePackage" checked>
+            <span id="samePackageText">All guests choose the same course</span>
+          </label>
+        </div>
+
+        <div class="additional-services" id="additionalServices">
+          <h4 id="additionalServicesTitle">Additional Guests' Courses (if different)</h4>
+          <div id="additionalServicesContainer"></div>
+        </div>
+
+        <div class="message-preview" id="messagePreview">
+          <div class="message-preview-head">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.884-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            <span id="previewTitle">WhatsApp Message Preview</span>
+          </div>
+          <pre class="message-preview-body" id="previewBody"></pre>
+          <p class="message-preview-hint" id="previewHint">Complete all required fields above to preview your message.</p>
+        </div>
+
+        <p class="payment-note" id="paymentNote">Open daily 11:00 – 03:00 · 2F, 1-15-1 Shimanouchi, Chuo-ku, Osaka<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a></p>
+
+        <button type="submit" class="submit-button" id="submitButton">
+          <span class="whatsapp-icon">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.884-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          </span>
+          <span id="submitButtonText">Submit &amp; Open WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    var WHATSAPP_NUMBER = '85290744644';
+    // Backup-number switch: read whatsapp-config.json; fall back to the number above.
+    fetch('whatsapp-config.json', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (c) { var num = c && c[c.use]; if (num && /^\d{8,15}$/.test(num)) WHATSAPP_NUMBER = num; })
+      .catch(function () {});
+
+    var VIP_UPGRADE_PER_GUEST = 1000;
+    var currentLang = 'en';
+
+    var serviceInfo = {
+      'Royal Head Spa Course 90 min': 16800,
+      'Royal Head Spa Course 120 min': 21800,
+      'Royal Head Spa Course 150 min': 25800,
+      'Head Spa 40 min': 6800,
+      'Full Body Shiatsu 70 min': 9800,
+      'Foot Massage 70 min': 12800,
+      'Aroma Oil Massage 70 min': 12800
+    };
+
+    // groups of {value(EN canonical), name per lang, dur, price}
+    var serviceGroups = [
+      { label: { en: 'Royal Head Spa — Full Body Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' }, items: [
+        { value: 'Royal Head Spa Course 90 min',  dur: 90,  price: 16800, en: 'Royal Head Spa Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' },
+        { value: 'Royal Head Spa Course 120 min', dur: 120, price: 21800, en: 'Royal Head Spa Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' },
+        { value: 'Royal Head Spa Course 150 min', dur: 150, price: 25800, en: 'Royal Head Spa Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' }
+      ]},
+      { label: { en: 'Massage Menu', jp: 'マッサージメニュー', cn: '按摩项目' }, items: [
+        { value: 'Head Spa 40 min',          dur: 40, price: 6800,  en: 'Head Spa',           jp: 'ヘッドスパ',           cn: '头疗SPA' },
+        { value: 'Full Body Shiatsu 70 min', dur: 70, price: 9800,  en: 'Full Body Shiatsu',  jp: '全身指圧マッサージ',   cn: '全身指压按摩' },
+        { value: 'Foot Massage 70 min',      dur: 70, price: 12800, en: 'Foot Massage',       jp: 'フットマッサージ',     cn: '足部按摩' },
+        { value: 'Aroma Oil Massage 70 min', dur: 70, price: 12800, en: 'Aroma Oil Massage',  jp: 'アロマオイルマッサージ', cn: '精油按摩' }
+      ]}
+    ];
+
+    var i18n = {
+      en: { htmlLang:'en', title:'Book Appointment — Celestique Spa', backLink:'Back to Home', brandBadge:'Book Your Appointment',
+        bookingSubtitle:'Fill in the form below to book your appointment',
+        successMessage:'Your booking information has been prepared. You will be redirected to WhatsApp shortly...',
+        labelService:'Course *', labelDate:'Date *', labelTime:'Time *', labelGuests:'Number of Guests *', labelName:'Name *',
+        selectCourse:'Select a course', selectTime:'Select a time', selectGuests:'Select number of guests', namePlaceholder:'Enter your name',
+        hintTime:'Open daily 11:00 – 03:00 (last booking 02:00).',
+        errorService:'Please select a course', errorDate:'Please select a date', errorTime:'Please select a time',
+        errorTimeRange:'Please choose a time within business hours (11:00 – 02:00).',
+        errorGuests:'Please select number of guests', errorName:'Please enter your name',
+        vipTitle:'VIP Business Room Upgrade (+¥1,000 / guest)',
+        vipDesc:'Undisturbed private room for 2–5 guests — ideal for meetings, couples and groups.',
+        samePackageText:'All guests choose the same course', additionalServicesTitle:"Additional Guests' Courses (if different)",
+        submitButton:'Submit & Open WhatsApp', redirecting:'Redirecting...',
+        previewTitle:'WhatsApp Message Preview', previewHint:'Complete all required fields above to preview your message.',
+        paymentNote:'Open daily 11:00 – 03:00 · 2F, 1-15-1 Shimanouchi, Chuo-ku, Osaka<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
+        guestUnit: function(n){ return n + (n>1?' Guests':' Guest'); },
+        waIntro:'Hello, I would like to make a reservation at Celestique Spa Shinsaibashi (心斎橋店).\n\n',
+        waName:'Name', waDate:'Date', waTime:'Time', waGuests:'Number of Guests', waMainGuest:'Main Guest',
+        waSameCourse:'All guests choose the same course', waGuest:'Guest', waVip:'VIP Business Room Upgrade', waTotal:'Total',
+        dateLocale:'en-US' },
+      jp: { htmlLang:'ja', title:'ご予約 — Celestique Spa', backLink:'ホームに戻る', brandBadge:'ご予約',
+        bookingSubtitle:'以下のフォームにご記入のうえ、ご予約ください',
+        successMessage:'予約内容を作成しました。まもなく WhatsApp へ移動します…',
+        labelService:'コース *', labelDate:'日付 *', labelTime:'時間 *', labelGuests:'人数 *', labelName:'お名前 *',
+        selectCourse:'コースを選択', selectTime:'時間を選択', selectGuests:'人数を選択', namePlaceholder:'お名前を入力',
+        hintTime:'毎日 11:00〜翌3:00（最終受付 翌2:00）',
+        errorService:'コースを選択してください', errorDate:'日付を選択してください', errorTime:'時間を選択してください',
+        errorTimeRange:'営業時間内（11:00〜翌2:00）の時間を選択してください。',
+        errorGuests:'人数を選択してください', errorName:'お名前を入力してください',
+        vipTitle:'VIPビジネスルーム アップグレード（+¥1,000 / 名）',
+        vipDesc:'2〜5名様向けの完全個室。商談・カップル・グループのご利用に最適です。',
+        samePackageText:'全員同じコースを選択', additionalServicesTitle:'追加ゲストのコース（異なる場合）',
+        submitButton:'送信して WhatsApp を開く', redirecting:'移動中…',
+        previewTitle:'WhatsApp メッセージプレビュー', previewHint:'送信内容を確認するため、上記の必須項目をすべてご記入ください。',
+        paymentNote:'毎日 11:00〜翌3:00 · 大阪市中央区島之内1-15-1 2F<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
+        guestUnit: function(n){ return n + '名'; },
+        waIntro:'こんにちは、Celestique Spa 心斎橋店のご予約を希望します。\n\n',
+        waName:'お名前', waDate:'日付', waTime:'時間', waGuests:'人数', waMainGuest:'代表者',
+        waSameCourse:'全員同じコース', waGuest:'ゲスト', waVip:'VIPビジネスルーム アップグレード', waTotal:'合計',
+        dateLocale:'ja-JP' },
+      cn: { htmlLang:'zh-CN', title:'预约 — Celestique Spa', backLink:'返回首页', brandBadge:'在线预约',
+        bookingSubtitle:'请填写以下信息完成预约',
+        successMessage:'预约信息已生成，即将跳转至 WhatsApp…',
+        labelService:'项目 *', labelDate:'日期 *', labelTime:'时间 *', labelGuests:'人数 *', labelName:'姓名 *',
+        selectCourse:'请选择项目', selectTime:'请选择时间', selectGuests:'请选择人数', namePlaceholder:'请输入您的姓名',
+        hintTime:'每天 11:00〜次日3:00（最晚预约 次日2:00）',
+        errorService:'请选择项目', errorDate:'请选择日期', errorTime:'请选择时间',
+        errorTimeRange:'请选择营业时间内（11:00〜次日2:00）的时间。',
+        errorGuests:'请选择人数', errorName:'请输入姓名',
+        vipTitle:'VIP商务包间升级（+¥1,000 / 人）',
+        vipDesc:'2-5人完全私密包间，商务洽谈、情侣、朋友聚会皆宜。',
+        samePackageText:'所有客人都选择相同项目', additionalServicesTitle:'其他客人的项目（如不同）',
+        submitButton:'提交并打开 WhatsApp', redirecting:'跳转中…',
+        previewTitle:'WhatsApp 消息预览', previewHint:'请先填写上方所有必填项，即可预览消息内容。',
+        paymentNote:'每天 11:00〜次日3:00 · 大阪市中央区岛之内1-15-1 2楼<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
+        guestUnit: function(n){ return n + ' 人'; },
+        waIntro:'您好，我想预约 Celestique Spa 心斋桥店。\n\n',
+        waName:'姓名', waDate:'日期', waTime:'时间', waGuests:'人数', waMainGuest:'主预约人',
+        waSameCourse:'所有客人都选择相同项目', waGuest:'客人', waVip:'VIP商务包间升级', waTotal:'合计',
+        dateLocale:'zh-CN' }
+    };
+
+    function t(k){ return i18n[currentLang][k]; }
+    function durLabel(dur){ return dur + (currentLang==='en' ? ' min' : (currentLang==='cn' ? ' 分钟' : '分')); }
+
+    function buildServiceOptionsHTML(selectedValue){
+      var html = '<option value="">' + t('selectCourse') + '</option>';
+      serviceGroups.forEach(function(g){
+        html += '<optgroup label="' + g.label[currentLang] + '">';
+        g.items.forEach(function(it){
+          var sel = it.value === selectedValue ? ' selected' : '';
+          html += '<option value="' + it.value + '"' + sel + '>' + it[currentLang] + ' ' + durLabel(it.dur) + ' — ¥' + it.price.toLocaleString() + '</option>';
+        });
+        html += '</optgroup>';
+      });
+      return html;
+    }
+
+    function buildGuestsOptionsHTML(selectedValue){
+      var html = '<option value="">' + t('selectGuests') + '</option>';
+      for (var i=1;i<=10;i++){
+        var sel = String(i)===selectedValue ? ' selected' : '';
+        html += '<option value="'+i+'"'+sel+'>'+t('guestUnit')(i)+'</option>';
+      }
+      return html;
+    }
+
+    function pad2(n){ return n<10 ? '0'+n : ''+n; }
+    // 5-minute time slots within business hours 11:00 – 02:00 (last booking 02:00)
+    function buildTimeOptions(selectedValue){
+      var html = '<option value="">' + t('selectTime') + '</option>';
+      var slots = [];
+      var h, m;
+      for (h=11; h<=23; h++) for (m=0;m<60;m+=5) slots.push([h,m]);
+      for (h=0; h<=1; h++)  for (m=0;m<60;m+=5) slots.push([h,m]);
+      slots.push([2,0]);
+      slots.forEach(function(s){ var v = pad2(s[0])+':'+pad2(s[1]); html += '<option value="'+v+'"'+(v===selectedValue?' selected':'')+'>'+v+'</option>'; });
+      return html;
+    }
+
+    function getInitialLang(){
+      var p = new URLSearchParams(window.location.search); var lang = p.get('lang');
+      if (lang==='cn'||lang==='jp'||lang==='en') return lang;
+      var ref = document.referrer;
+      if (ref.indexOf('/cn/')!==-1) return 'cn';
+      if (ref.indexOf('/jp/')!==-1) return 'jp';
+      if (ref.indexOf('/en/')!==-1) return 'en';
+      return 'en';
+    }
+
+    function applyLang(lang){
+      currentLang = lang; var o = i18n[lang];
+      var sv = document.getElementById('service').value;
+      var gv = document.getElementById('guests').value;
+      var tv = document.getElementById('time').value;
+      document.documentElement.lang = o.htmlLang;
+      document.title = o.title;
+      document.getElementById('backLinkText').textContent = o.backLink;
+      document.getElementById('brandBadge').textContent = o.brandBadge;
+      document.getElementById('bookingSubtitle').textContent = o.bookingSubtitle;
+      document.getElementById('successMessage').textContent = o.successMessage;
+      document.getElementById('labelService').textContent = o.labelService;
+      document.getElementById('labelDate').textContent = o.labelDate;
+      document.getElementById('labelTime').textContent = o.labelTime;
+      document.getElementById('labelGuests').textContent = o.labelGuests;
+      document.getElementById('labelName').textContent = o.labelName;
+      document.getElementById('hintTime').textContent = o.hintTime;
+      document.getElementById('errorService').textContent = o.errorService;
+      document.getElementById('errorDate').textContent = o.errorDate;
+      document.getElementById('errorTime').textContent = o.errorTime;
+      document.getElementById('errorGuests').textContent = o.errorGuests;
+      document.getElementById('errorName').textContent = o.errorName;
+      document.getElementById('name').placeholder = o.namePlaceholder;
+      document.getElementById('vipTitle').textContent = o.vipTitle;
+      document.getElementById('vipDesc').textContent = o.vipDesc;
+      document.getElementById('samePackageText').textContent = o.samePackageText;
+      document.getElementById('additionalServicesTitle').textContent = o.additionalServicesTitle;
+      document.getElementById('submitButtonText').textContent = o.submitButton;
+      document.getElementById('previewTitle').textContent = o.previewTitle;
+      document.getElementById('previewHint').textContent = o.previewHint;
+      document.getElementById('paymentNote').innerHTML = o.paymentNote;
+      document.getElementById('service').innerHTML = buildServiceOptionsHTML(sv);
+      document.getElementById('guests').innerHTML = buildGuestsOptionsHTML(gv);
+      document.getElementById('time').innerHTML = buildTimeOptions(tv);
+      document.querySelectorAll('.lang-switch button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang')===lang); });
+      var url = new URL(window.location.href); url.searchParams.set('lang', lang); history.replaceState(null,'',url);
+      updateAdditionalServices();
+      updateMessagePreview();
+    }
+
+    var dateInput = document.getElementById('date');
+    dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
+
+    applyLang(getInitialLang());
+
+    document.querySelectorAll('.lang-switch button').forEach(function(btn){
+      btn.addEventListener('click', function(){ applyLang(this.getAttribute('data-lang')); });
+    });
+
+    // pre-select service from ?service=
+    (function(){
+      var svc = new URLSearchParams(window.location.search).get('service');
+      if (svc){ var sel=document.getElementById('service'); for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value===svc){ sel.options[i].selected=true; break; } } }
+      updateMessagePreview();
+    })();
+
+    document.getElementById('guests').addEventListener('change', updateAdditionalServices);
+    document.getElementById('samePackage').addEventListener('change', updateAdditionalServices);
+
+    function updateAdditionalServices(){
+      var guests = document.getElementById('guests').value;
+      var add = document.getElementById('additionalServices');
+      var cont = document.getElementById('additionalServicesContainer');
+      var spg = document.getElementById('samePackageGroup');
+      var spc = document.getElementById('samePackage');
+      if (!guests || guests==='1'){ add.classList.remove('show'); cont.innerHTML=''; spg.style.display='none'; updateMessagePreview(); return; }
+      spg.style.display='block';
+      if (spc.checked){ add.classList.remove('show'); cont.innerHTML=''; updateMessagePreview(); return; }
+      var n = parseInt(guests)-1, html='';
+      for (var i=1;i<=n;i++){
+        html += '<div class="guest-service-row"><div class="guest-label">'+t('waGuest')+' '+(i+1)+'</div>' +
+                '<select name="guest'+i+'Service" class="form-select">'+buildServiceOptionsHTML('')+'</select></div>';
+      }
+      cont.innerHTML = html; add.classList.add('show'); updateMessagePreview();
+    }
+
+    function servicePrice(s){ return serviceInfo[s] || 0; }
+
+    function isTimeInHours(ts){
+      if (!ts) return false;
+      var p = ts.split(':'); var h = parseInt(p[0],10), m = parseInt(p[1],10);
+      return h>=11 || h<2 || (h===2 && m===0);
+    }
+
+    function validateForm(){
+      var ok = true;
+      document.querySelectorAll('.form-group').forEach(function(g){ g.classList.remove('error'); });
+      if (!document.getElementById('name').value.trim()){ document.getElementById('nameGroup').classList.add('error'); ok=false; }
+      if (!document.getElementById('date').value){ document.getElementById('dateGroup').classList.add('error'); ok=false; }
+      var timeVal = document.getElementById('time').value;
+      if (!timeVal){ document.getElementById('errorTime').textContent = t('errorTime'); document.getElementById('timeGroup').classList.add('error'); ok=false; }
+      else if (!isTimeInHours(timeVal)){ document.getElementById('errorTime').textContent = t('errorTimeRange'); document.getElementById('timeGroup').classList.add('error'); ok=false; }
+      if (!document.getElementById('guests').value){ document.getElementById('guestsGroup').classList.add('error'); ok=false; }
+      if (!document.getElementById('service').value){ document.getElementById('serviceGroup').classList.add('error'); ok=false; }
+      return ok;
+    }
+
+    function formatDate(ds){ var d=new Date(ds+'T00:00:00'); return d.toLocaleDateString(t('dateLocale'),{year:'numeric',month:'long',day:'numeric'}); }
+
+    function isFormComplete(){
+      return document.getElementById('name').value.trim() && document.getElementById('date').value &&
+             document.getElementById('time').value && document.getElementById('guests').value && document.getElementById('service').value;
+    }
+
+    function buildWhatsAppMessage(fd){
+      var name=fd.get('name'), date=formatDate(fd.get('date')), time=fd.get('time');
+      var guests=fd.get('guests'), gc=parseInt(guests), main=fd.get('service');
+      var vip = fd.get('vipUpgrade')==='on';
+      var m = t('waIntro');
+      m += t('waName')+': '+name+'\n';
+      m += t('waDate')+': '+date+'\n';
+      m += t('waTime')+': '+time+'\n';
+      m += t('waGuests')+': '+guests+'\n';
+      m += t('waMainGuest')+': '+main+' (¥'+servicePrice(main).toLocaleString()+')\n';
+      var same = fd.get('samePackage')==='on';
+      var total = servicePrice(main);
+      if (gc>1 && same){ m += t('waSameCourse')+'\n'; total = servicePrice(main)*gc; }
+      else { for (var i=1;i<gc;i++){ var gs=fd.get('guest'+i+'Service'); if(gs&&gs.trim()){ m += t('waGuest')+' '+(i+1)+': '+gs+' (¥'+servicePrice(gs).toLocaleString()+')\n'; total += servicePrice(gs); } } }
+      if (vip){ var vt = VIP_UPGRADE_PER_GUEST*gc; m += t('waVip')+': +¥'+VIP_UPGRADE_PER_GUEST.toLocaleString()+' x '+gc+' = ¥'+vt.toLocaleString()+'\n'; total += vt; }
+      if (total>0){ m += '\n'+t('waTotal')+': ¥'+total.toLocaleString(); }
+      return m;
+    }
+
+    function updateMessagePreview(){
+      var ps=document.getElementById('messagePreview'), pb=document.getElementById('previewBody');
+      if (!isFormComplete()){ ps.classList.remove('ready'); pb.textContent=''; return; }
+      pb.textContent = buildWhatsAppMessage(new FormData(document.getElementById('bookingForm')));
+      ps.classList.add('ready');
+    }
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      if (!validateForm()) return;
+      var msg = encodeURIComponent(buildWhatsAppMessage(new FormData(this)));
+      var url = 'https://api.whatsapp.com/send/?phone=' + WHATSAPP_NUMBER + '&text=' + msg + '&type=phone_number&app_absent=0';
+      document.getElementById('successMessage').classList.add('show');
+      document.getElementById('submitButton').disabled = true;
+      document.getElementById('submitButtonText').textContent = t('redirecting');
+      setTimeout(function(){ window.open(url,'_blank'); }, 500);
+    });
+
+    document.getElementById('bookingForm').addEventListener('input', updateMessagePreview);
+    document.getElementById('bookingForm').addEventListener('change', updateMessagePreview);
+
+    document.querySelectorAll('.form-input, .form-select').forEach(function(input){
+      input.addEventListener('blur', function(){
+        var g=this.closest('.form-group'); if(!g) return;
+        if (this.hasAttribute('required') && !this.value.trim()) g.classList.add('error'); else g.classList.remove('error');
+      });
+      input.addEventListener('input', function(){
+        var g=this.closest('.form-group'); if(g && g.classList.contains('error') && this.value.trim()) g.classList.remove('error');
+      });
+    });
+  </script>
+</body>
+</html>
