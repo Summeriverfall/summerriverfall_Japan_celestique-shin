@@ -394,7 +394,7 @@
         <div class="form-group" id="timeGroup">
           <label for="time" class="form-label" id="labelTime">Time *</label>
           <select id="time" name="time" class="form-select" required></select>
-          <div class="form-hint" id="hintTime">Open daily 11:00 – 03:00 (last booking 02:00).</div>
+          <div class="form-hint" id="hintTime" hidden></div>
           <div class="form-error" id="errorTime">Please select a time</div>
         </div>
 
@@ -441,7 +441,7 @@
           <p class="message-preview-hint" id="previewHint">Complete all required fields above to preview your message.</p>
         </div>
 
-        <p class="payment-note" id="paymentNote">Open daily 11:00 – 03:00 · 2F, 1-15-1 Shimanouchi, Chuo-ku, Osaka<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a></p>
+        <p class="payment-note" id="paymentNote">Open daily 10:00 – 24:00 · 〒542-0085 Osaka, Chuo Ward, Shinsaibashisuji, 2 Chome−1−8 藤田ビル4F<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a></p>
 
         <button type="submit" class="submit-button" id="submitButton">
           <span class="whatsapp-icon">
@@ -495,16 +495,16 @@
         successMessage:'Your booking information has been prepared. You will be redirected to WhatsApp shortly...',
         labelService:'Course *', labelDate:'Date *', labelTime:'Time *', labelGuests:'Number of Guests *', labelName:'Name *',
         selectCourse:'Select a course', selectTime:'Select a time', selectGuests:'Select number of guests', namePlaceholder:'Enter your name',
-        hintTime:'Open daily 11:00 – 03:00 (last booking 02:00).',
+        hintTime:'',
         errorService:'Please select a course', errorDate:'Please select a date', errorTime:'Please select a time',
-        errorTimeRange:'Please choose a time within business hours (11:00 – 02:00).',
+        errorTimeRange:'Please choose a time within business hours (10:00 – 24:00).',
         errorGuests:'Please select number of guests', errorName:'Please enter your name',
         vipTitle:'VIP Business Room Upgrade (+¥1,000 / guest)',
         vipDesc:'Undisturbed private room for 2–5 guests — ideal for meetings, couples and groups.',
         samePackageText:'All guests choose the same course', additionalServicesTitle:"Additional Guests' Courses (if different)",
         submitButton:'Submit & Open WhatsApp', redirecting:'Redirecting...',
         previewTitle:'WhatsApp Message Preview', previewHint:'Complete all required fields above to preview your message.',
-        paymentNote:'Open daily 11:00 – 03:00 · 2F, 1-15-1 Shimanouchi, Chuo-ku, Osaka<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
+        paymentNote:'Open daily 10:00 – 24:00 · 〒542-0085 Osaka, Chuo Ward, Shinsaibashisuji, 2 Chome−1−8 藤田ビル4F<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
         guestUnit: function(n){ return n + (n>1?' Guests':' Guest'); },
         waIntro:'Hello, I would like to make a reservation at Celestique Spa Shinsaibashi (心斎橋店).\n\n',
         waName:'Name', waDate:'Date', waTime:'Time', waGuests:'Number of Guests', waMainGuest:'Main Guest',
@@ -515,16 +515,16 @@
         successMessage:'予約内容を作成しました。まもなく WhatsApp へ移動します…',
         labelService:'コース *', labelDate:'日付 *', labelTime:'時間 *', labelGuests:'人数 *', labelName:'お名前 *',
         selectCourse:'コースを選択', selectTime:'時間を選択', selectGuests:'人数を選択', namePlaceholder:'お名前を入力',
-        hintTime:'毎日 11:00〜翌3:00（最終受付 翌2:00）',
+        hintTime:'',
         errorService:'コースを選択してください', errorDate:'日付を選択してください', errorTime:'時間を選択してください',
-        errorTimeRange:'営業時間内（11:00〜翌2:00）の時間を選択してください。',
+        errorTimeRange:'営業時間内（10:00〜24:00）の時間を選択してください。',
         errorGuests:'人数を選択してください', errorName:'お名前を入力してください',
         vipTitle:'VIPビジネスルーム アップグレード（+¥1,000 / 名）',
         vipDesc:'2〜5名様向けの完全個室。商談・カップル・グループのご利用に最適です。',
         samePackageText:'全員同じコースを選択', additionalServicesTitle:'追加ゲストのコース（異なる場合）',
         submitButton:'送信して WhatsApp を開く', redirecting:'移動中…',
         previewTitle:'WhatsApp メッセージプレビュー', previewHint:'送信内容を確認するため、上記の必須項目をすべてご記入ください。',
-        paymentNote:'毎日 11:00〜翌3:00 · 大阪市中央区島之内1-15-1 2F<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
+        paymentNote:'毎日 10:00〜24:00 · 〒542-0085 大阪府大阪市中央区心斎橋筋2丁目1-8 藤田ビル4F<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
         guestUnit: function(n){ return n + '名'; },
         waIntro:'こんにちは、Celestique Spa 心斎橋店のご予約を希望します。\n\n',
         waName:'お名前', waDate:'日付', waTime:'時間', waGuests:'人数', waMainGuest:'代表者',
@@ -535,16 +535,16 @@
         successMessage:'预约信息已生成，即将跳转至 WhatsApp…',
         labelService:'项目 *', labelDate:'日期 *', labelTime:'时间 *', labelGuests:'人数 *', labelName:'姓名 *',
         selectCourse:'请选择项目', selectTime:'请选择时间', selectGuests:'请选择人数', namePlaceholder:'请输入您的姓名',
-        hintTime:'每天 11:00〜次日3:00（最晚预约 次日2:00）',
+        hintTime:'',
         errorService:'请选择项目', errorDate:'请选择日期', errorTime:'请选择时间',
-        errorTimeRange:'请选择营业时间内（11:00〜次日2:00）的时间。',
+        errorTimeRange:'请选择营业时间内（10:00〜24:00）的时间。',
         errorGuests:'请选择人数', errorName:'请输入姓名',
         vipTitle:'VIP商务包间升级（+¥1,000 / 人）',
         vipDesc:'2-5人完全私密包间，商务洽谈、情侣、朋友聚会皆宜。',
         samePackageText:'所有客人都选择相同项目', additionalServicesTitle:'其他客人的项目（如不同）',
         submitButton:'提交并打开 WhatsApp', redirecting:'跳转中…',
         previewTitle:'WhatsApp 消息预览', previewHint:'请先填写上方所有必填项，即可预览消息内容。',
-        paymentNote:'每天 11:00〜次日3:00 · 大阪市中央区岛之内1-15-1 2楼<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
+        paymentNote:'每天 10:00〜24:00 · 〒542-0085 大阪府大阪市中央区心斋桥筋2丁目1-8 藤田ビル4F<br>Tel <a href="tel:+81649632477" style="color:inherit">+81 6-4963-2477</a>',
         guestUnit: function(n){ return n + ' 人'; },
         waIntro:'您好，我想预约 Celestique Spa 心斋桥店。\n\n',
         waName:'姓名', waDate:'日期', waTime:'时间', waGuests:'人数', waMainGuest:'主预约人',
@@ -578,14 +578,12 @@
     }
 
     function pad2(n){ return n<10 ? '0'+n : ''+n; }
-    // 5-minute time slots within business hours 11:00 – 02:00 (last booking 02:00)
+    // 5-minute time slots within business hours 10:00 – 24:00
     function buildTimeOptions(selectedValue){
       var html = '<option value="">' + t('selectTime') + '</option>';
       var slots = [];
       var h, m;
-      for (h=11; h<=23; h++) for (m=0;m<60;m+=5) slots.push([h,m]);
-      for (h=0; h<=1; h++)  for (m=0;m<60;m+=5) slots.push([h,m]);
-      slots.push([2,0]);
+      for (h=10; h<=23; h++) for (m=0;m<60;m+=5) slots.push([h,m]);
       slots.forEach(function(s){ var v = pad2(s[0])+':'+pad2(s[1]); html += '<option value="'+v+'"'+(v===selectedValue?' selected':'')+'>'+v+'</option>'; });
       return html;
     }
@@ -681,7 +679,7 @@
     function isTimeInHours(ts){
       if (!ts) return false;
       var p = ts.split(':'); var h = parseInt(p[0],10), m = parseInt(p[1],10);
-      return h>=11 || h<2 || (h===2 && m===0);
+      return h>=10 && h<=23;
     }
 
     function validateForm(){
