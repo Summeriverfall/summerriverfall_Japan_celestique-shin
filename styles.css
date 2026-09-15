@@ -1120,10 +1120,13 @@ a.rating-banner:hover span {
 
 .review-card blockquote {
   order: 1;
+  flex: 0 0 auto;
+  min-height: 0;
+  height: calc(1.85em * 6);
   font-size: 0.86rem;
   color: var(--ink-soft);
   line-height: 1.85;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 6;
@@ -1131,6 +1134,7 @@ a.rating-banner:hover span {
   overflow: hidden;
 }
 .review-card.is-expanded blockquote {
+  height: auto;
   display: block;
   -webkit-line-clamp: unset;
   line-clamp: unset;
@@ -1139,7 +1143,9 @@ a.rating-banner:hover span {
 .review-more {
   order: 2;
   align-self: flex-start;
-  margin: 0 0 1.15rem;
+  visibility: hidden;
+  min-height: 1.2em;
+  margin: 0 0 1.05rem;
   padding: 0;
   border: 0;
   background: none;
@@ -1150,8 +1156,9 @@ a.rating-banner:hover span {
   letter-spacing: 0.04em;
   color: var(--brand);
 }
-.review-more[hidden] {
-  display: none;
+.review-card.is-collapsible .review-more,
+.review-card.is-expanded .review-more {
+  visibility: visible;
 }
 
 .review-who {

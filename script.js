@@ -148,7 +148,7 @@
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "review-more";
-      btn.hidden = true;
+      btn.tabIndex = -1;
       btn.textContent = labels.more;
       card.appendChild(btn);
 
@@ -156,13 +156,17 @@
         return quote.scrollHeight <= quote.clientHeight + 2;
       }
       function sync() {
-        if (card.classList.contains("is-expanded")) {
-          btn.hidden = false;
+        var expanded = card.classList.contains("is-expanded");
+        if (expanded) {
+          card.classList.add("is-collapsible");
           btn.textContent = labels.less;
+          btn.tabIndex = 0;
           return;
         }
         btn.textContent = labels.more;
-        btn.hidden = fits();
+        var overflow = !fits();
+        card.classList.toggle("is-collapsible", overflow);
+        btn.tabIndex = overflow ? 0 : -1;
       }
 
       btn.addEventListener("click", function (e) {
