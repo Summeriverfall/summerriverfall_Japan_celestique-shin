@@ -1486,6 +1486,27 @@ ul {
 .rec-star { color:#d4a24c; margin-right:.15rem; }
 .rec-title { font-weight:700; }
 
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.landing-sister {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+.landing-sister:hover {
+  color: var(--gold-pale);
+  text-decoration: underline;
+}
+
 /* sister-store note (patch) */
 .brand-sister { margin-top:0.9rem; font-size:0.82rem; letter-spacing:0.12em; color:var(--gold); }
 
