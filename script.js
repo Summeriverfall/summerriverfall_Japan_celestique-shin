@@ -41,7 +41,7 @@
   );
 
   document
-    .querySelectorAll(".section-head, .about-grid, .feature, .signature, .menu-card, .vip-block, .gallery-item, .review-card, .access-grid")
+    .querySelectorAll(".section-head, .about-grid, .feature, .signature, .menu-card, .menu-extra, .vip-block, .gallery-item, .review-card, .access-grid")
     .forEach(function (el) {
       el.classList.add("reveal");
       observer.observe(el);

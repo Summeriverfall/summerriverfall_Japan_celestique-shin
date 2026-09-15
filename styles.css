@@ -633,6 +633,89 @@ ul {
   color: var(--ink-soft);
 }
 
+
+.price-block {
+  border-bottom: 1px solid var(--gold-pale);
+  padding: 0.7rem 0.15rem 0.85rem;
+}
+.price-block .price-row {
+  border-bottom: none;
+  padding: 0.15rem 0.25rem 0.2rem;
+}
+.price-desc {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.35rem 0 0;
+}
+.menu-subhead {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.04em;
+  margin: 0.4rem 0 1.35rem;
+}
+.menu-card .price-rows {
+  margin-bottom: 0;
+  border-top: none;
+}
+.menu-extra {
+  background: var(--white);
+  box-shadow: 0 10px 30px rgba(36, 26, 18, 0.07);
+  padding: 1.15rem 1.4rem 1.25rem;
+  margin-top: 1.35rem;
+}
+.menu-extra .menu-subhead { margin-bottom: 0.7rem; }
+.menu-extra.gift-card { display: none; }
+.gift-lead {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.6rem;
+}
+.menu-extra-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7.5em minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 0.8rem;
+  padding: 0.7rem 0.1rem;
+  border-bottom: 1px solid var(--gold-pale);
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+a.menu-extra-row:hover { background: var(--cream); }
+.opt-name { font-size: 0.88rem; }
+.opt-dur {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  text-align: center;
+  white-space: nowrap;
+}
+.opt-dur:empty { visibility: hidden; }
+.opt-price {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--brand);
+  white-space: nowrap;
+  justify-self: end;
+}
+.sheet-note {
+  margin: 1.15rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--gold-pale);
+  font-size: 0.85rem;
+  opacity: 0.85;
+  text-align: left;
+  line-height: 1.55;
+  list-style: disc;
+  padding-left: 1.15rem;
+  color: var(--ink-soft);
+}
+.sheet-note li { margin: 0.15rem 0; }
+
 .includes li::before {
   content: "";
   position: absolute;
@@ -648,7 +731,7 @@ ul {
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.4rem;
 }
 

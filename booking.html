@@ -149,6 +149,8 @@
       background: var(--cream);
       transition: all 0.3s;
     }
+    #serviceGroup { overflow-x: hidden; }
+    #service { font-size: clamp(0.65rem, 2.5vw, 0.78rem); max-width: 100%; }
 
     .form-input:focus,
     .form-select:focus {
@@ -160,6 +162,44 @@
 
     .form-input::placeholder { color: var(--ink-soft); }
 
+    .booking-notice {
+      margin: 1.4rem 0 1.1rem;
+      padding: 1rem 1.1rem 1.05rem;
+      border: 1px solid var(--gold-pale);
+      background: rgba(193, 154, 107, 0.08);
+    }
+    .booking-notice-title {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 0.7rem;
+    }
+    .booking-notice-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.45rem;
+    }
+    .booking-notice-list li {
+      position: relative;
+      padding-left: 0.95rem;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .booking-notice-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
     .form-hint {
       font-size: 0.78rem;
       color: var(--ink-soft);
@@ -441,7 +481,15 @@
           <p class="message-preview-hint" id="previewHint">Complete all required fields above to preview your message.</p>
         </div>
 
-        <p class="payment-note" id="paymentNote">Open daily 10:00 – 24:00 · 〒542-0085 Osaka, Chuo Ward, Shinsaibashisuji, 2 Chome−1−8 藤田ビル 4F<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a></p>
+        <aside class="booking-notice" aria-labelledby="noticeTitle">
+          <h3 class="booking-notice-title" id="noticeTitle">Before you book</h3>
+          <ul class="booking-notice-list" id="noticeList">
+            <li>VIP private room upgrade +¥1,000 / guest</li>
+            <li>Therapist request fee ¥2,000</li>
+          </ul>
+        </aside>
+
+        <p class="payment-note" id="paymentNote">Open daily 11:00 – 03:00 · 〒542-0085 Osaka, Chuo Ward, Shinsaibashisuji, 2 Chome−1−8 藤田ビル 4F<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a></p>
 
         <button type="submit" class="submit-button" id="submitButton">
           <span class="whatsapp-icon">
@@ -465,27 +513,45 @@
     var currentLang = 'en';
 
     var serviceInfo = {
-      'Royal Head Spa Course 90 min': 16800,
-      'Royal Head Spa Course 120 min': 21800,
-      'Royal Head Spa Course 150 min': 25800,
-      'Head Spa 40 min': 6800,
-      'Full Body Shiatsu 70 min': 9800,
-      'Foot Massage 70 min': 12800,
-      'Aroma Oil Massage 70 min': 12800
+      'Dry Head Course 90 min': 13500,
+      'Dry Head Course 120 min': 18000,
+      'Dry Head Course 150 min': 22500,
+      'Wet Head Course 90 min': 18000,
+      'Wet Head Course 120 min': 23000,
+      'Wet Head Course 150 min': 27000,
+      'Dry Head Massage 40 min': 6800,
+      'Dry Head Massage 70 min': 11900,
+      'Wet Head Spa 40 min': 9000,
+      'Wet Head Spa 70 min': 15750,
+      'Ear Cleaning 60 min': 8000,
+      'Facial Treatment 60 min': 11000,
+      'Full Body Massage 70 min': 9800,
+      'Full Body Oil Massage 70 min': 12800,
+      'Foot Massage 70 min': 12800
     };
 
     // groups of {value(EN canonical), name per lang, dur, price}
     var serviceGroups = [
-      { label: { en: 'Royal Head Spa — Full Body Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' }, items: [
-        { value: 'Royal Head Spa Course 90 min',  dur: 90,  price: 16800, en: 'Royal Head Spa Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' },
-        { value: 'Royal Head Spa Course 120 min', dur: 120, price: 21800, en: 'Royal Head Spa Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' },
-        { value: 'Royal Head Spa Course 150 min', dur: 150, price: 25800, en: 'Royal Head Spa Course', jp: '帝王ヘッドスパ 全身ケアコース', cn: '越式帝王洗头 全身护理套餐' }
+      { label: { en: 'Dry Head Premium Course', jp: 'ドライヘッドコース', cn: '干式头疗套餐' }, items: [
+        { value: 'Dry Head Course 90 min',  dur: 90,  price: 13500, en: 'Dry Head Course', jp: 'ドライヘッドコース', cn: '干式头疗套餐' },
+        { value: 'Dry Head Course 120 min', dur: 120, price: 18000, en: 'Dry Head Course', jp: 'ドライヘッドコース', cn: '干式头疗套餐' },
+        { value: 'Dry Head Course 150 min', dur: 150, price: 22500, en: 'Dry Head Course', jp: 'ドライヘッドコース', cn: '干式头疗套餐' }
       ]},
-      { label: { en: 'Massage Menu', jp: 'マッサージメニュー', cn: '按摩项目' }, items: [
-        { value: 'Head Spa 40 min',          dur: 40, price: 6800,  en: 'Head Spa',           jp: 'ヘッドスパ',           cn: '头疗SPA' },
-        { value: 'Full Body Shiatsu 70 min', dur: 70, price: 9800,  en: 'Full Body Shiatsu',  jp: '全身指圧マッサージ',   cn: '全身指压按摩' },
-        { value: 'Foot Massage 70 min',      dur: 70, price: 12800, en: 'Foot Massage',       jp: 'フットマッサージ',     cn: '足部按摩' },
-        { value: 'Aroma Oil Massage 70 min', dur: 70, price: 12800, en: 'Aroma Oil Massage',  jp: 'アロマオイルマッサージ', cn: '精油按摩' }
+      { label: { en: 'Wet Head Premium Course', jp: 'ウェットヘッドコース', cn: '湿式头疗套餐' }, items: [
+        { value: 'Wet Head Course 90 min',  dur: 90,  price: 18000, en: 'Wet Head Course', jp: 'ウェットヘッドコース', cn: '湿式头疗套餐' },
+        { value: 'Wet Head Course 120 min', dur: 120, price: 23000, en: 'Wet Head Course', jp: 'ウェットヘッドコース', cn: '湿式头疗套餐' },
+        { value: 'Wet Head Course 150 min', dur: 150, price: 27000, en: 'Wet Head Course', jp: 'ウェットヘッドコース', cn: '湿式头疗套餐' }
+      ]},
+      { label: { en: 'Basic Spa Course', jp: 'ベーシックスパコース', cn: '基础SPA课程' }, items: [
+        { value: 'Dry Head Massage 40 min',       dur: 40,  price: 6800,  en: 'Dry Head Massage', jp: 'ドライヘッドマッサージ', cn: '干式头部按摩' },
+        { value: 'Dry Head Massage 70 min',       dur: 70,  price: 11900, en: 'Dry Head Massage', jp: 'ドライヘッドマッサージ', cn: '干式头部按摩' },
+        { value: 'Wet Head Spa 40 min',           dur: 40,  price: 9000,  en: 'Wet Head Spa',     jp: 'ウェットヘッドスパ',     cn: '湿式头疗SPA' },
+        { value: 'Wet Head Spa 70 min',           dur: 70,  price: 15750, en: 'Wet Head Spa',     jp: 'ウェットヘッドスパ',     cn: '湿式头疗SPA' },
+        { value: 'Ear Cleaning 60 min',           dur: 60,  price: 8000,  en: 'Ear Cleaning',     jp: '耳かき',                 cn: '采耳' },
+        { value: 'Facial Treatment 60 min',       dur: 60,  price: 11000, en: 'Facial',           jp: 'フェイシャル',           cn: '面部护理' },
+        { value: 'Full Body Massage 70 min',      dur: 70,  price: 9800,  en: 'Full Body Massage',jp: '全身マッサージ',         cn: '全身按摩' },
+        { value: 'Full Body Oil Massage 70 min',  dur: 70,  price: 12800, en: 'Full Body Oil',    jp: '全身オイル',             cn: '全身精油按摩' },
+        { value: 'Foot Massage 70 min',           dur: 70,  price: 12800, en: 'Foot Massage',     jp: 'フットマッサージ',       cn: '足部按摩' }
       ]}
     ];
 
@@ -496,15 +562,17 @@
         labelService:'Course *', labelDate:'Date *', labelTime:'Time *', labelGuests:'Number of Guests *', labelName:'Name *',
         selectCourse:'Select a course', selectTime:'Select a time', selectGuests:'Select number of guests', namePlaceholder:'Enter your name',
         hintTime:'',
+        noticeTitle:'Before you book',
+        noticeItems:['VIP private room upgrade +¥1,000 / guest','Therapist request fee ¥2,000'],
         errorService:'Please select a course', errorDate:'Please select a date', errorTime:'Please select a time',
-        errorTimeRange:'Please choose a time within business hours (10:00 – 24:00).',
+        errorTimeRange:'Please choose a time within business hours (11:00 – 02:00).',
         errorGuests:'Please select number of guests', errorName:'Please enter your name',
         vipTitle:'VIP Business Room Upgrade (+¥1,000 / guest)',
         vipDesc:'A quieter private room for 2–5 guests — ideal for meetings, couples and groups.',
         samePackageText:'All guests choose the same course', additionalServicesTitle:"Additional Guests' Courses (if different)",
         submitButton:'Submit & Open WhatsApp', redirecting:'Redirecting...',
         previewTitle:'WhatsApp Message Preview', previewHint:'Complete all required fields above to preview your message.',
-        paymentNote:'Open daily 10:00 – 24:00 · 〒542-0085 Osaka, Chuo Ward, Shinsaibashisuji, 2 Chome−1−8 藤田ビル 4F<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a>',
+        paymentNote:'Open daily 11:00 – 03:00 · 〒542-0085 Osaka, Chuo Ward, Shinsaibashisuji, 2 Chome−1−8 藤田ビル 4F<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a>',
         guestUnit: function(n){ return n + (n>1?' Guests':' Guest'); },
         waIntro:'Hello, I would like to make a reservation at Celestique Spa Shinsaibashi (心斎橋店).\n\n',
         waName:'Name', waDate:'Date', waTime:'Time', waGuests:'Number of Guests', waMainGuest:'Main Guest',
@@ -516,15 +584,17 @@
         labelService:'コース *', labelDate:'日付 *', labelTime:'時間 *', labelGuests:'人数 *', labelName:'お名前 *',
         selectCourse:'コースを選択', selectTime:'時間を選択', selectGuests:'人数を選択', namePlaceholder:'お名前を入力',
         hintTime:'',
+        noticeTitle:'ご予約前のご案内',
+        noticeItems:['VIP個室アップグレード +¥1,000 / 名','指名料 ¥2,000'],
         errorService:'コースを選択してください', errorDate:'日付を選択してください', errorTime:'時間を選択してください',
-        errorTimeRange:'営業時間内（10:00〜24:00）の時間を選択してください。',
+        errorTimeRange:'営業時間内（11:00〜翌2:00）の時間を選択してください。',
         errorGuests:'人数を選択してください', errorName:'お名前を入力してください',
         vipTitle:'VIPビジネスルーム アップグレード（+¥1,000 / 名）',
         vipDesc:'より静かで落ち着いた完全個室。商談はもちろん、カップル・グループのご利用にも最適です。',
         samePackageText:'全員同じコースを選択', additionalServicesTitle:'追加ゲストのコース（異なる場合）',
         submitButton:'送信して WhatsApp を開く', redirecting:'移動中…',
         previewTitle:'WhatsApp メッセージプレビュー', previewHint:'送信内容を確認するため、上記の必須項目をすべてご記入ください。',
-        paymentNote:'毎日 10:00〜24:00 · 〒542-0085 大阪府大阪市中央区心斎橋筋２丁目１−８ 藤田ビル 4階<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a>',
+        paymentNote:'毎日 11:00〜翌3:00 · 〒542-0085 大阪府大阪市中央区心斎橋筋２丁目１−８ 藤田ビル 4階<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a>',
         guestUnit: function(n){ return n + '名'; },
         waIntro:'こんにちは、Celestique Spa 心斎橋店のご予約を希望します。\n\n',
         waName:'お名前', waDate:'日付', waTime:'時間', waGuests:'人数', waMainGuest:'代表者',
@@ -536,15 +606,17 @@
         labelService:'项目 *', labelDate:'日期 *', labelTime:'时间 *', labelGuests:'人数 *', labelName:'姓名 *',
         selectCourse:'请选择项目', selectTime:'请选择时间', selectGuests:'请选择人数', namePlaceholder:'请输入您的姓名',
         hintTime:'',
+        noticeTitle:'预约前提示',
+        noticeItems:['VIP包间升级 +¥1,000 / 人','指名费 ¥2,000'],
         errorService:'请选择项目', errorDate:'请选择日期', errorTime:'请选择时间',
-        errorTimeRange:'请选择营业时间内（10:00〜24:00）的时间。',
+        errorTimeRange:'请选择营业时间内（11:00〜次日2:00）的时间。',
         errorGuests:'请选择人数', errorName:'请输入姓名',
         vipTitle:'VIP商务包间升级（+¥1,000 / 人）',
         vipDesc:'更安静的私密包间，可供2～5位客人使用，商务洽谈、情侣、朋友聚会皆宜。',
         samePackageText:'所有客人都选择相同项目', additionalServicesTitle:'其他客人的项目（如不同）',
         submitButton:'提交并打开 WhatsApp', redirecting:'跳转中…',
         previewTitle:'WhatsApp 消息预览', previewHint:'请先填写上方所有必填项，即可预览消息内容。',
-        paymentNote:'每天 10:00〜24:00 · 〒542-0085 大阪府大阪市中央区心斋桥筋2丁目1−8 藤田ビル 4楼<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a>',
+        paymentNote:'每天 11:00〜次日3:00 · 〒542-0085 大阪府大阪市中央区心斋桥筋2丁目1−8 藤田ビル 4楼<br>Tel <a href="tel:+81642561110" style="color:inherit">06-4256-1110</a>',
         guestUnit: function(n){ return n + ' 人'; },
         waIntro:'您好，我想预约 Celestique Spa 心斋桥店。\n\n',
         waName:'姓名', waDate:'日期', waTime:'时间', waGuests:'人数', waMainGuest:'主预约人',
@@ -578,12 +650,14 @@
     }
 
     function pad2(n){ return n<10 ? '0'+n : ''+n; }
-    // 5-minute time slots within business hours 10:00 – 24:00
+    // 5-minute time slots within business hours 11:00 – 02:00 (last booking 02:00)
     function buildTimeOptions(selectedValue){
       var html = '<option value="">' + t('selectTime') + '</option>';
       var slots = [];
       var h, m;
-      for (h=10; h<=23; h++) for (m=0;m<60;m+=5) slots.push([h,m]);
+      for (h=11; h<=23; h++) for (m=0;m<60;m+=5) slots.push([h,m]);
+      for (h=0; h<=1; h++)  for (m=0;m<60;m+=5) slots.push([h,m]);
+      slots.push([2,0]);
       slots.forEach(function(s){ var v = pad2(s[0])+':'+pad2(s[1]); html += '<option value="'+v+'"'+(v===selectedValue?' selected':'')+'>'+v+'</option>'; });
       return html;
     }
@@ -615,6 +689,10 @@
       document.getElementById('labelGuests').textContent = o.labelGuests;
       document.getElementById('labelName').textContent = o.labelName;
       document.getElementById('hintTime').textContent = o.hintTime;
+      document.getElementById('noticeTitle').textContent = o.noticeTitle;
+      document.getElementById('noticeList').innerHTML = o.noticeItems.map(function(item){
+        return '<li>' + item + '</li>';
+      }).join('');
       document.getElementById('errorService').textContent = o.errorService;
       document.getElementById('errorDate').textContent = o.errorDate;
       document.getElementById('errorTime').textContent = o.errorTime;
@@ -679,7 +757,7 @@
     function isTimeInHours(ts){
       if (!ts) return false;
       var p = ts.split(':'); var h = parseInt(p[0],10), m = parseInt(p[1],10);
-      return h>=10 && h<=23;
+      return h>=11 || h<2 || (h===2 && m===0);
     }
 
     function validateForm(){
