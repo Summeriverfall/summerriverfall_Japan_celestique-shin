@@ -1502,4 +1502,5 @@ ul {
 .sister-info li:first-child { border-top:1px solid var(--gold-pale); }
 .sister-info .k { flex-shrink:0; width:5.5rem; color:var(--gold-deep); font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; padding-top:0.2rem; }
 .sister-info .v { color:var(--ink); line-height:1.7; }
+.sister-info .v a { color:inherit; text-decoration:underline; text-underline-offset:0.18em; }
 @media (max-width:960px){ .sister-card { grid-template-columns:1fr; } .sister-media { min-height:220px; } }
