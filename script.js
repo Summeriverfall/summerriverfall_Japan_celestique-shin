@@ -131,4 +131,52 @@
       el.classList.add("reveal");
       observer.observe(el);
     });
+
+  /* ---- Review clamp / expand ---- */
+  (function setupReviewClamps() {
+    var lang = (document.documentElement.lang || "").toLowerCase();
+    var labels =
+      lang.indexOf("ja") === 0
+        ? { more: "続きを読む", less: "閉じる" }
+        : lang.indexOf("en") === 0
+          ? { more: "Read more", less: "Show less" }
+          : { more: "展开", less: "收起" };
+
+    document.querySelectorAll(".review-card").forEach(function (card) {
+      var quote = card.querySelector("blockquote");
+      if (!quote) return;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "review-more";
+      btn.hidden = true;
+      btn.textContent = labels.more;
+      card.appendChild(btn);
+
+      function fits() {
+        return quote.scrollHeight <= quote.clientHeight + 2;
+      }
+      function sync() {
+        if (card.classList.contains("is-expanded")) {
+          btn.hidden = false;
+          btn.textContent = labels.less;
+          return;
+        }
+        btn.textContent = labels.more;
+        btn.hidden = fits();
+      }
+
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        card.classList.toggle("is-expanded");
+        sync();
+      });
+
+      sync();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(sync);
+      }
+      window.addEventListener("resize", sync);
+    });
+  })();
 })();
